@@ -29,7 +29,7 @@ void DrawBrickPos(int x, int y)
     DrawRectangleLines(x, y, 15, 15, BLACK);
 }
 
-void DrawGrid(int screenWidth, int screenHeight, int cellSize)
+void DrawGameGrid(int screenWidth, int screenHeight, int cellSize)
 {
     // Vertical lines
     for (int x = 0; x <= screenWidth; x += cellSize)
@@ -44,13 +44,13 @@ void DrawGrid(int screenWidth, int screenHeight, int cellSize)
     }
 }
 
-void DrawPlayer(Player* player, int brickSize)
+void DrawPlayer(Player* player, int brickSize, int screenWidth)
 {
-    if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT))
+    if ((IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) && player->pos.x != 0)
     {
         player->pos.x -= brickSize;
     }
-    if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT))
+    if ((IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) && player->pos.x < screenWidth - brickSize)
     {
         player->pos.x += brickSize;
     }
@@ -261,7 +261,7 @@ int main(void)
         ClearBackground(LIGHTGRAY);
 
         // Grid first (background)
-        DrawGrid(screenWidth, screenHeight, brickSize);
+        DrawGameGrid(screenWidth, screenHeight, brickSize);
 
         // Draw all bricks
         for (int i = 0; i < MAX_BRICKS; i++)
@@ -281,7 +281,7 @@ int main(void)
             }
         }
 
-        DrawPlayer(&player, brickSize);
+        DrawPlayer(&player, brickSize, screenWidth);
 
         if (isGameOver)
         {
