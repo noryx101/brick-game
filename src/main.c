@@ -81,15 +81,15 @@ void DrawScore(int score)
 
 void DrawPlayAgain(bool* isGameOver, bool* isReset)
 {
-    Rectangle buttonRec = { 55, 150, 140, 50 };
+    Rectangle buttonRect = { 55, 150, 140, 50 };
 
-    if (CheckCollisionPointRec(GetMousePosition(), buttonRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    if (CheckCollisionPointRec(GetMousePosition(), buttonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         *isGameOver = !*isGameOver;
         *isReset = !*isReset;
     }
 
-    DrawRectangleRec(buttonRec, DARKGRAY);
+    DrawRectangleRec(buttonRect, DARKGRAY);
     DrawText("Play Again!", 70, 165, 22, BLACK);
 }
 
@@ -162,12 +162,7 @@ int main(void)
                         if (bricks[i].pos.y > screenHeight)
                         {
                             bricks[i].active = false;
-                        }
-
-                        // Set to gameover when the bricks out off screen
-                        if (bricks[i].pos.y > screenHeight)
-                        {
-                            isGameOver = true;
+                            isGameOver       = true;
                         }
                     }
                 }
